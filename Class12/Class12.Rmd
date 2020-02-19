@@ -8,3 +8,53 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## PDB Statistics
+
+Download a CSV file from the PDB site (accessible from “Analyze” > “PDB Statistics” > “by Experimental Method and Molecular Type”. Move this CSV file into your RStudio project and use it to answer the following questions:
+
+Q: What percentage of structures in the PDB are solved by X-Ray and Electron Microscopy.
+
+```{r}
+stats <- read.csv("Data Export Summary.csv", row.names = 1)
+stats
+
+```
+
+
+```{r}
+ans <- round(stats$Total / sum(stats$Total) * 100 , 2)
+names(ans) <- rownames(stats)
+ans
+```
+
+
+Q: What proportion of structures in the PDB are protein?
+
+```{r}
+round(sum(stats$Proteins) / sum(stats$Total) * 100, 2)
+```
+
+
+Q: Type HIV in the PDB website search box on the home page and determine how many HIV-1 protease structures are in the current PDB?
+
+
+Bio3D is an R package for structural bioinformatics. Features include the ability to read, write and analyze biomolecular structure, sequence and dynamic trajectory data.
+
+
+```{r}
+library(bio3d)
+
+pdb <- read.pdb("1hsg")
+pdb
+```
+
+Note that the attributes (+ attr:) of this object are listed on the last couple of lines. To find the attributes of any such object you can use:
+
+```{r}
+attributes(pdb)
+```
+
+
+
+
+
+

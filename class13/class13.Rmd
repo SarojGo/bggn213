@@ -1,0 +1,59 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Download process starting structure
+
+Here we download and clean up the HIV-Pr structure (PDB code: 1HSG) tfrom the main PDB database. We will make a seperate "protein-only" and ligand-only" PDB files.
+
+```{r}
+library(bio3d)
+file.name <- get.pdb("1hsg")
+```
+
+We wil use `read.pdb` , atom.select() and write.pdb() function to make our seperate "protein-only" and " lignad only" PDB files
+
+```{r}
+hiv <- read.pdb(file.name)
+prot <- atom.select(hiv, "protein", value = TRUE)
+lig <- atom.select(hiv, "ligand", value = TRUE)
+```
+
+
+
+```{r}
+write.pdb(prot, file = "1hsg_protein.pdb")
+write.pdb(lig, file = "1hsg_ligand.pdb")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
