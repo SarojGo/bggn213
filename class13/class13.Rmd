@@ -33,6 +33,13 @@ write.pdb(lig, file = "1hsg_ligand.pdb")
 ```
 
 
+To read in the output of docking and make a PDB file for viewing in BVMD or PyMol
+
+```{r}
+res <- read.pdb("all.pdbqt", multi=TRUE)
+write.pdb(res, "results.pdb")
+```
+
 
 
 
