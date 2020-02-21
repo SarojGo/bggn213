@@ -7,8 +7,146 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+##Read our data for today
+
+
 ```{r}
 counts <- read.csv("airway_scaledcounts.csv", stringsAsFactors = FALSE)
 metadata <-  read.csv("airway_metadata.csv", stringsAsFactors = FALSE)
+
+nrow(counts)
+```
+
+We will compare the control vs. treated count data contained in `counts` object. 
+
+We will first extract the control columns by looking up their colnames in the `metadata` object.
+
+Accces just the "control" metadata, then take the mean value for each gene (i.e. each row)
+
+```{r}
+control <- metadata[metadata[,"dex"]=="control",]
+control.mean <- rowSums( counts[ ,control$id] )/4 
+names(control.mean) <- counts$ensgene
+```
+
+Repeat the same process for `treated`.
+
+```{r}
+treated <- metadata[metadata[,"dex"]=="treated",]
+treated.mean <- rowSums(counts[,treated$id])/4
+treated.mean
+```
+
+
+We will combine our meancount data for bookkeeping purposes.
+
+
+
+
+```{r}
+meancounts <- data.frame(control.mean, treated.mean)
+```
+
+To create a scatterplot of the mean values of control vs. treated use this:
+
+```{r}
+plot(meancounts)
+```
+
+
+```{r}
+hist(meancounts$control.mean, breaks = 300)
+```
+
+
+To make both axes on a logorithmic scale, use the following:
+
+```{r}
+plot(meancounts, log= "yx")
+```
+
+To add log2foldchange to meancounts data frame
+
+```{r}
+meancounts$log2fc <- log2(meancounts[,"treated.mean"]/meancounts[,"control.mean"])
+```
+
+
+To get ridd of nonsense results
+
+```{r}
+zero.vals <- which(meancounts[,1:2]==0, arr.ind=TRUE)
+
+to.rm <- unique(zero.vals[,1])
+mycounts <- meancounts[-to.rm,]
+head(mycounts)
+nrow(mycounts)
+```
+
+A common rule of thumb in the field is to use a log2fc of greater than +2 as "upregulated" and less than -2 as "downregulated"
+
+How many of our genes are upregulated upon this drug treatment?
+
+```{r}
+up.ind <- mycounts$log2fc > 2
+down.ind <- mycounts$log2fc < (-2)
+
+
+sum(up.ind)
+sum(down.ind)
+```
+
+##Let's use DESeq2
+
+```{r}
+library(DESeq2)
+```
+
+To use DESeq, you need to put data into very specific dataframe
+
+
+```{r}
+dds <- DESeqDataSetFromMatrix(countData=counts, 
+                              colData=metadata, 
+                              design=~dex, 
+                              tidy=TRUE)
+dds
+```
+
+
+```{r}
+dds <- DESeq(dds)
+```
+
+```{r}
+res <- results(dds)
+res
+```
+
+Can organize results by smallest p value and create new subset of p value < 0.05
+
+```{r}
+resOrdered <- res[order(res$pvalue),]
+res05 <- results(dds, alpha=0.05)
+summary(res05)
+```
+
+To visualize, can create a volcano plot
+
+```{r}
+plot( res$log2FoldChange,  -log(res$padj), 
+      xlab="Log2(FoldChange)",
+      ylab="-Log(P-value)")
+```
+
+Can add cutoff lines for better visualization of useful data
+
+```{r}
+plot( res$log2FoldChange,  -log(res$padj), 
+ ylab="-Log(P-value)", xlab="Log2(FoldChange)")
+
+# Add some cut-off lines
+abline(v=c(-2,2), col="darkgray", lty=2)
+abline(h=-log(0.05), col="darkgray", lty=2)
 ```
 
