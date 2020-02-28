@@ -1,0 +1,94 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Download and read input data
+
+The data for for hands-on session comes from GEO entry: GSE37704, which is associated with the following publication:
+
+Trapnell C, Hendrickson DG, Sauvageau M, Goff L et al. "Differential analysis of gene regulation at transcript resolution with RNA-seq". Nat Biotechnol 2013 Jan;31(1):46-53. PMID: 23222703
+The authors report on differential analysis of lung fibroblasts in response to loss of the developmental transcription factor HOXA1.
+
+```{r}
+# Import metadata and take a peak
+colData = read.csv("GSE37704_metadata.csv", row.names=1)
+head(colData)
+```
+
+```{r}
+# Import metadata and take a peak
+countData = read.csv("GSE37704_featurecounts.csv", row.names=1)
+head(countData)
+```
+
+```{r}
+rawcountData <- countData[,-1]
+head(rawcountData)
+```
+
+
+```{r}
+dim(rawcountData)
+```
+
+There are genes that have zero counts in all samples. Need to get rid of rows without data, aka with values of zero.
+
+First identify the zero sum rows
+
+Exclude these zero sum rows
+
+```{r}
+validcountData <- rawcountData[ rowSums(rawcountData) != 0,]
+```
+
+
+## Running DESeq2
+
+```{r}
+library(DESeq2)
+```
+
+```{r}
+dds = DESeqDataSetFromMatrix(countData=validcountData,
+                             colData=colData,
+                             design=~condition)
+dds = DESeq(dds)
+```
+
+```{r}
+res = results(dds)
+```
+
+##Make a volcano plot from data
+
+You plot log2 fold chang vs. -log of adjusted p-value
+
+
+```{r}
+plot(res$log2FoldChange, -log(res$padj))
+```
+
+To improve the visual of this, use the folowing functions
+
+```{r}
+# Make a color vector for all genes
+mycols <- rep("gray", nrow(res) )
+
+# Color red the genes with absolute fold change above 2
+mycols[ abs(res$log2FoldChange) > 2 ] <- "red"
+
+# Color blue those with adjusted p-value less than 0.01
+#  and absolute fold change more than 2
+inds <- (res$padj < 0.01) & (abs(res$log2FoldChange) > 2 )
+mycols[ inds ] <- "blue"
+
+plot( res$log2FoldChange, -log(res$padj), col=mycols, xlab="Log2(FoldChange)", ylab="-Log(P-value)" )
+```
+
+
+
