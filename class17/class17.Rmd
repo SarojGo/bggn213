@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Class 17"
 output: github_document
 ---
 
@@ -7,24 +7,110 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## GitHub Documents
+## Coronavirus
 
-This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+Here we analyze infection data for the 2019 novel Coronavirus COVID-19 (2019-nCoV) epidemic. The raw data is pulled from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus repository.
 
-## Including Code
+A CSV file is available here https://github.com/RamiKrispin/coronavirus-csv
 
-You can include R code in the document as follows:
 
-```{r cars}
-summary(cars)
+```{r}
+url <- "https://tinyurl.com/COVID-2019"
+virus <- read.csv(url)
+
+tail(virus)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+
+> Q1. How many total infected cases are there around the world?
+
+```{r}
+total_cases <- sum(virus$cases)
+total_cases
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+> Q2. How many deaths linked to infected cases have there been?
+
+
+Lets have a look at the "$type" column
+
+```{r}
+table(virus$type)
+```
+
+
+```{r}
+inds <- virus$type == "death"
+death_cases <- sum(virus[inds,"cases"])
+```
+
+
+
+
+> Q3. What is the overall death rate?
+
+Percent death 
+
+```{r}
+round(death_cases/total_cases * 100,2)
+```
+
+
+
+> Q4. What is the death rate in Mainland China?
+
+
+```{r}
+China_cases <- subset(virus, Country.Region == "Mainland China")
+
+total_China_cases <- sum(China_cases$cases)
+
+China_death <- sum(China_cases[China_cases$type == "death", "cases"])
+
+round(China_death/total_China_cases * 100, 2)
+```
+
+
+> Q5. What is the death rate in Italy, Iran and the US?
+
+Italian Death rate
+
+```{r}
+Italy_cases <- subset(virus, Country.Region == "Italy")
+
+total_Italy_cases <- sum(Italy_cases$cases)
+
+Italy_death <- sum(Italy_cases[Italy_cases$type == "death", 
+                              "cases"])
+
+round(Italy_death/total_Italy_cases * 100, 2)
+```
+
+Iranian Death Rate
+
+```{r}
+Iran_cases <- subset(virus, Country.Region == "Iran")
+
+total_Iran_cases <- sum(Iran_cases$cases)
+
+Iran_death <- sum(Iran_cases[Iran_cases$type == "death", "cases"])
+
+round(Iran_death/total_Iran_cases * 100, 2)
+```
+
+US Death Rate
+
+```{r}
+usa_cases <- subset(virus, Country.Region == "US")
+
+total_usa_cases <- sum(usa_cases$cases)
+
+usa_death <- sum(usa_cases[usa_cases$type == "death", "cases"])
+
+round(usa_death/total_usa_cases *100, 2)
+```
+
+
