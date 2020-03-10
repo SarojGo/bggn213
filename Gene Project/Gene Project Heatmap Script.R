@@ -7,6 +7,7 @@ data <- read.fasta("Gene Project Mega Fasta.fas")
 
 # calculate sequence identity
 seq.id <- seqidentity(data, normalize=TRUE, similarity=FALSE, ncore=1, nseg.scale=1)
+
 # heatmap it
 pdf("heatmap.pdf")
 heatmap(seq.id,scale="none",col = viridis(256),margins=c(10,11))
@@ -26,9 +27,12 @@ mouse <- read.fasta("Mouse_PCD")
 # now blast the pdb
 blastresults <- blast.pdb(mouse)
 # saved the blast results
+
+blastresults
+
 # now read in list of pdb files
 l <- read.csv("list.csv",header=FALSE)
-pdb.annotate(l)
+pdb.annotate("1DCH")
 
 
 
