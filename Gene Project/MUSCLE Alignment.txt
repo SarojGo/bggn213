@@ -1,0 +1,47 @@
+CLUSTAL multiple sequence alignment by MUSCLE (3.8)
+
+
+Leucoraja_PCD       ----------IITQNGSMCTTRFRSLSPMTAVVSPKKILSWQNSSNKLLLLPISCFSAFF
+Drosophila_PCD      MLLTIKCAQNVIKPNCQKVANLLASSRRAGLFPTTATTATSRSLSQISVLYSPAAREAAR
+Sechellia_fly       MLLTIKCAQNVIKPNCQKVANLLASSRRAGLTRATATTATSRSLSQISVLYSPAAREAAR
+Nematode            ---------------------------------------------------MHSSYSHFL
+House_Mouse         ------------------------------------------------------------
+Human_PCD           ------------------------------------------------------------
+Zebrafish_PCD       ------------------------------------------------------------
+                                                                                
+
+Leucoraja_PCD       PSRGETARGVCIKYTFEGIAHG----EIGKNNGTCNPIFKFLQKRPLLIVMQIVSCLKLY
+Drosophila_PCD      AATGGSANLRRIHNTPTTEATA---TAITAKKRKMVVRLNEQERAEKLQPLLDA------
+Sechellia_fly       AATGGSANLRRIHGTPTTEATA---TAITAKKRKMVVRLNEQERAEKLQPLLDA------
+Nematode            QRLRTSVSYLSVSHFPSTSSHRLFSTTIGVFARKKMPLLTESERTEQLSGLKTA------
+House_Mouse         ---------------MAGKAHR----------------LSAEERDQLLPNLRAV------
+Human_PCD           ---------------MAGKAHR----------------LSAEERDQLLPNLRAV------
+Zebrafish_PCD       ---------------MAGKIQT----------------LTMEEREHLLPMMRNA------
+                                                          :.  :.   *  :  .      
+
+Leucoraja_PCD       SQWFSGTLPCTEMRNSWLVHFNKILPYMYTIILKLRSVRIEDYIEAVHKGSVAQRSCCLT
+Drosophila_PCD      -GWTLVEGRDAIFKQFVLKDFNQAFSFMTGV--ALLAEKINHHPE---------------
+Sechellia_fly       -GWTLVEGRDAIFKQFVLKDFNQAFSFMTGV--ALLAEKINHHPE---------------
+Nematode            -GWKLVEGRDAIQKEFHFKDFNEAFGFMTRV--GLKAEKMDHHPE---------------
+House_Mouse         -GWNEVEGRDAIFKQFHFKDFNRAFGFMTRV--ALQAEKLDHHPE---------------
+Human_PCD           -GWNELEGRDAIFKQFHFKDFNRAFGFMTRV--ALQAEKLDHHPE---------------
+Zebrafish_PCD       -QWVEVGGRDAIYKEFIFKDFNQAFGFMSRV--ALQAEKMDHHPE---------------
+                      *       :  .:  :  **  : :*  :   * : .:: : *               
+
+Leucoraja_PCD       MPESLVRSRLRVLSVWSFHILPVTVWVFSGISGFLSLSKDVQVCRLIGLVYVNCPKCVDN
+Drosophila_PCD      -------------------------WF----------------------------NCYNK
+Sechellia_fly       -------------------------WF----------------------------NCYNK
+Nematode            -------------------------WF----------------------------NVYNK
+House_Mouse         -------------------------WF----------------------------NVYNK
+Human_PCD           -------------------------WF----------------------------NVYNK
+Zebrafish_PCD       -------------------------WF----------------------------NVYNK
+                                             *.                            :  ::
+
+Leucoraja_PCD       VNVRGSLVGAGLVGRKACFHAVSLKSKLNYRVATFPAPSCILKFQX
+Drosophila_PCD      VDVTLST------------HDVGGLSSQDIRMATHLETTANLLK--
+Sechellia_fly       VDVTLST------------HDVGGLSSQDIRMATHLETTANLLK--
+Nematode            VDITLST------------HDCGGLSPNDVKLATFIESIVKK----
+House_Mouse         VHITLST------------HECAGLSERDINLASFIEQVAVSMT--
+Human_PCD           VHITLST------------HECAGLSERDINLASFIEQVAVSMT--
+Zebrafish_PCD       VQITLST------------HECGGLSQRDINLATFIDQASVL----
+                    * :  *             *  .  *  : .:*:.           
